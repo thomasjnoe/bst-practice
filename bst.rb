@@ -43,6 +43,15 @@ class BST
 	end
 
 	def breadth_first_search(value)
+		queue = []
+		current_node = root
+		begin
+			current_node = queue.shift if queue.size > 0
+			return current_node.value if value == current_node.value
+			queue.push(current_node.left) if current_node.left.nil? == false
+			queue.push(current_node.right) if current_node.right.nil? == false
+		end while queue.size > 0
+		return nil
 	end
 
 	def depth_first_search(value)
@@ -57,4 +66,5 @@ arr.shuffle!
 new_tree = BST.new(arr)
 puts new_tree.root.value
 new_tree.build_tree
+puts new_tree.breadth_first_search(10)
 

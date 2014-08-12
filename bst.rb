@@ -48,23 +48,13 @@ class BST
 
 	def depth_first_search(value)
 		stack = [root]
-		visited = [root]
-		current_node = root
-		loop do
+		until stack.empty?
+			current_node = stack.pop
 			return current_node.value if value == current_node.value
-			if !current_node.left.nil? && !visited.include?(current_node.left)
-				current_node = current_node.left
-				stack.push(current_node)
-				visited.push(current_node)
-			elsif !current_node.right.nil? && !visited.include?(current_node.right)
-				current_node = current_node.right
-				stack.push(current_node)
-				visited.push(current_node)
-			else
-				stack.size > 0 ? current_node = stack.pop : break
-			end
+			stack.push(current_node.left) unless current_node.left.nil?
+			stack.push(current_node.right) unless current_node.right.nil?
 		end
-		return nil
+		nil
 	end
 
 	def dfs_rec(value, current_node = root)

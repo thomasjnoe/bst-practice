@@ -89,7 +89,18 @@ class BST
 		return nil
 	end
 
-	def dfs_rec(value)
+	def dfs_rec(value, current_node = root)
+		result = nil
+		return current_node.value if value == current_node.value
+		if !current_node.left.nil?
+			result = dfs_rec(value, current_node.left)
+			return result if !result.nil?
+		end
+		if !current_node.right.nil?
+			result = dfs_rec(value, current_node.right)
+			return result if !result.nil?
+		end
+		result
 	end
 end
 
@@ -99,4 +110,5 @@ new_tree = BST.new(arr)
 new_tree.build_tree
 puts new_tree.breadth_first_search(10)
 puts new_tree.depth_first_search(10)
+puts new_tree.dfs_rec(10)
 

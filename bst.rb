@@ -27,17 +27,9 @@ class BST
 	def add(value, current_node = root)
 		if value != current_node.value
 			if value < current_node.value
-				if current_node.left.nil?
-					current_node.left = Node.new(value, current_node, nil, nil)
-				else
-					add(value, current_node.left)
-				end
+				current_node.left.nil? ? current_node.left = Node.new(value, current_node, nil, nil) : add(value, current_node.left)
 			else
-				if current_node.right.nil?
-					current_node.right = Node.new(value, current_node, nil, nil)
-				else
-					add(value, current_node.right)
-				end
+				current_node.right.nil? ? current_node.right = Node.new(value, current_node, nil, nil) : add(value, current_node.right)
 			end
 		end
 	end
@@ -52,20 +44,6 @@ class BST
 			queue.push(current_node.right) if current_node.right.nil? == false
 		end while queue.size > 0
 		return nil
-	end
-
-	def bfs_show_tree # For debugging purposes
-		queue = []
-		current_node = root
-		begin
-			current_node = queue.shift if queue.size > 0
-			puts "Current_node is #{current_node.value}"
-			left_child = current_node.left.nil? ? "None" : current_node.left.value
-			right_child = current_node.right.nil? ? "None" : current_node.right.value
-			puts "Current Node's children: #{left_child}, #{right_child}"
-			queue.push(current_node.left) if current_node.left.nil? == false
-			queue.push(current_node.right) if current_node.right.nil? == false
-		end while queue.size > 0
 	end
 
 	def depth_first_search(value)
@@ -101,6 +79,20 @@ class BST
 			return result if !result.nil?
 		end
 		result
+	end
+
+	def bfs_show_tree # For debugging purposes
+		queue = []
+		current_node = root
+		begin
+			current_node = queue.shift if queue.size > 0
+			puts "Current_node is #{current_node.value}"
+			left_child = current_node.left.nil? ? "None" : current_node.left.value
+			right_child = current_node.right.nil? ? "None" : current_node.right.value
+			puts "Current Node's children: #{left_child}, #{right_child}"
+			queue.push(current_node.left) if current_node.left.nil? == false
+			queue.push(current_node.right) if current_node.right.nil? == false
+		end while queue.size > 0
 	end
 end
 

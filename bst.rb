@@ -70,18 +70,18 @@ class BST
 
 	def depth_first_search(value)
 		stack = [root]
-		result = [root]
+		visited = [root]
 		current_node = root
 		loop do
 			return current_node.value if value == current_node.value
-			if !current_node.left.nil? && !result.include?(current_node.left)
+			if !current_node.left.nil? && !visited.include?(current_node.left)
 				current_node = current_node.left
 				stack.push(current_node)
-				result.push(current_node)
-			elsif !current_node.right.nil? && !result.include?(current_node.right)
+				visited.push(current_node)
+			elsif !current_node.right.nil? && !visited.include?(current_node.right)
 				current_node = current_node.right
 				stack.push(current_node)
-				result.push(current_node)
+				visited.push(current_node)
 			else
 				stack.size > 0 ? current_node = stack.pop : break
 			end

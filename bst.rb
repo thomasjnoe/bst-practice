@@ -54,7 +54,39 @@ class BST
 		return nil
 	end
 
+	def bfs_show_tree # For debugging purposes
+		queue = []
+		current_node = root
+		begin
+			current_node = queue.shift if queue.size > 0
+			puts "Current_node is #{current_node.value}"
+			left_child = current_node.left.nil? ? "None" : current_node.left.value
+			right_child = current_node.right.nil? ? "None" : current_node.right.value
+			puts "Current Node's children: #{left_child}, #{right_child}"
+			queue.push(current_node.left) if current_node.left.nil? == false
+			queue.push(current_node.right) if current_node.right.nil? == false
+		end while queue.size > 0
+	end
+
 	def depth_first_search(value)
+		stack = [root]
+		result = [root]
+		current_node = root
+		loop do
+			return current_node.value if value == current_node.value
+			if !current_node.left.nil? && !result.include?(current_node.left)
+				current_node = current_node.left
+				stack.push(current_node)
+				result.push(current_node)
+			elsif !current_node.right.nil? && !result.include?(current_node.right)
+				current_node = current_node.right
+				stack.push(current_node)
+				result.push(current_node)
+			else
+				stack.size > 0 ? current_node = stack.pop : break
+			end
+		end
+		return nil
 	end
 
 	def dfs_rec(value)
@@ -64,7 +96,7 @@ end
 arr = [0,2,4,5,10,14,18,20]
 arr.shuffle!
 new_tree = BST.new(arr)
-puts new_tree.root.value
 new_tree.build_tree
 puts new_tree.breadth_first_search(10)
+puts new_tree.depth_first_search(10)
 

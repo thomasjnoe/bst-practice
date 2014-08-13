@@ -39,8 +39,8 @@ class BST
 		until queue.empty?
 			current_node = queue.shift
 			return current_node.value if value == current_node.value
-			queue.push(current_node.left) if current_node.left.nil? == false
-			queue.push(current_node.right) if current_node.right.nil? == false
+			queue.push(current_node.left) unless current_node.left.nil?
+			queue.push(current_node.right) unless current_node.right.nil?
 		end
 		nil
 	end

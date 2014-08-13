@@ -25,7 +25,7 @@ class BST
 	end
 
 	def add(value, current_node = root)
-		if value != current_node.value
+		unless value == current_node.value
 			if value < current_node.value
 				current_node.left.nil? ? current_node.left = Node.new(value, current_node, nil, nil) : add(value, current_node.left)
 			else
@@ -35,15 +35,14 @@ class BST
 	end
 
 	def breadth_first_search(value)
-		queue = []
-		current_node = root
-		begin
-			current_node = queue.shift if queue.size > 0
+		queue = [root]
+		until queue.empty?
+			current_node = queue.shift
 			return current_node.value if value == current_node.value
 			queue.push(current_node.left) if current_node.left.nil? == false
 			queue.push(current_node.right) if current_node.right.nil? == false
-		end while queue.size > 0
-		return nil
+		end
+		nil
 	end
 
 	def depth_first_search(value)
@@ -58,31 +57,29 @@ class BST
 	end
 
 	def dfs_rec(value, current_node = root)
-		result = nil
 		return current_node.value if value == current_node.value
-		if !current_node.left.nil?
+		unless current_node.left.nil?
 			result = dfs_rec(value, current_node.left)
-			return result if !result.nil?
+			return result unless result.nil?
 		end
-		if !current_node.right.nil?
+		unless current_node.right.nil?
 			result = dfs_rec(value, current_node.right)
-			return result if !result.nil?
+			return result unless result.nil?
 		end
-		result
+		nil
 	end
 
 	def bfs_show_tree # For debugging purposes
-		queue = []
-		current_node = root
-		begin
-			current_node = queue.shift if queue.size > 0
-			puts "Current_node is #{current_node.value}"
+		queue = [root]
+		until queue.empty?
+			current_node = queue.shift
+			puts "Current Node is #{current_node.value}"
 			left_child = current_node.left.nil? ? "None" : current_node.left.value
 			right_child = current_node.right.nil? ? "None" : current_node.right.value
 			puts "Current Node's children: #{left_child}, #{right_child}"
 			queue.push(current_node.left) if current_node.left.nil? == false
 			queue.push(current_node.right) if current_node.right.nil? == false
-		end while queue.size > 0
+		end
 	end
 end
 
